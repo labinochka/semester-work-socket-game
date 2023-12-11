@@ -39,10 +39,6 @@ public class SocketClient extends Thread {
         }
     }
 
-    public BufferedReader getFromServer() {
-        return bufferedReader;
-    }
-
     @Override
     public void run() {
         while (true) {
@@ -53,16 +49,16 @@ public class SocketClient extends Thread {
 
                 switch (message.getType()) {
                     case PLAYER_CONNECTED -> {
-                        System.out.println(message);
+                        System.out.println(message.getType());
                         Platform.runLater(() -> controller.startGame());
                     }
                     case PLAYER_DRAWS -> {
-                        System.out.println(message);
+                        System.out.println(message.getType());
                         String[] coordinates = message.getBody().split(",");
                         Platform.runLater(() -> controller.fillRect(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
                     }
                     case STOP -> {
-                        System.out.println(message);
+                        System.out.println(message.getType());
                         Platform.runLater(() -> controller.stopGame());
                     }
                 }
