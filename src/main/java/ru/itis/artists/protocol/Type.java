@@ -1,4 +1,4 @@
-package ru.itis.artists.protocols;
+package ru.itis.artists.protocol;
 
 public enum Type {
 

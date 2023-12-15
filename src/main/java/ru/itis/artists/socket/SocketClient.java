@@ -1,10 +1,10 @@
-package ru.itis.artists.sockets;
+package ru.itis.artists.socket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
-import ru.itis.artists.controllers.PaintController;
-import ru.itis.artists.protocols.Message;
+import ru.itis.artists.controller.PaintController;
+import ru.itis.artists.protocol.Message;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,18 +13,20 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class SocketClient extends Thread {
+
     private final Socket client;
 
-    private PaintController controller;
+    private final PrintWriter toServer;
 
-    private final PrintWriter printWriter; // на SocketServer fromClient
-    private final BufferedReader bufferedReader; // на SocketServer toClient
+    private final BufferedReader fromServer;
+
+    private PaintController controller;
 
     public SocketClient(String host, int port) {
         try {
             client = new Socket(host, port);
-            printWriter = new PrintWriter(client.getOutputStream(), true);
-            bufferedReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            toServer = new PrintWriter(client.getOutputStream(), true);
+            fromServer = new BufferedReader(new InputStreamReader(client.getInputStream()));
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -33,7 +35,7 @@ public class SocketClient extends Thread {
     public void sendMessage(Message message) {
         try {
             String jsonMessage = new ObjectMapper().writeValueAsString(message);
-            printWriter.println(jsonMessage);
+            toServer.println(jsonMessage);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -43,7 +45,7 @@ public class SocketClient extends Thread {
     public void run() {
         while (true) {
             try {
-                String futureMessage = bufferedReader.readLine();
+                String futureMessage = fromServer.readLine();
                 ObjectMapper objectMapper = new ObjectMapper();
                 Message message = objectMapper.readValue(futureMessage, Message.class);
 
@@ -66,10 +68,6 @@ public class SocketClient extends Thread {
                 e.printStackTrace();
             }
         }
-    }
-
-    public PaintController getController() {
-        return controller;
     }
 
     public void setController(PaintController controller) {

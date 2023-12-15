@@ -1,4 +1,4 @@
-package ru.itis.artists.controllers;
+package ru.itis.artists.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,9 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
-import ru.itis.artists.protocols.Message;
-import ru.itis.artists.protocols.Type;
-import ru.itis.artists.sockets.SocketClient;
+import ru.itis.artists.protocol.Message;
+import ru.itis.artists.protocol.Type;
+import ru.itis.artists.socket.SocketClient;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -26,6 +26,7 @@ public class PaintController {
     private final Integer ROUND_TIME = 80;
 
     private SocketClient socketClient;
+
     private ScheduledExecutorService service;
 
     @FXML

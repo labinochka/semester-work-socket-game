@@ -1,8 +1,9 @@
-package ru.itis.artists.protocols;
+package ru.itis.artists.protocol;
 
 public class Message {
 
     Type type;
+
     String body;
 
     public Message() {
