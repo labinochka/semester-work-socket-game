@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import ru.itis.artists.controller.PaintController;
 
 public class App extends Application {
+
     public static void main(String[] args) {
         launch(args);
     }

@@ -3,7 +3,13 @@ package ru.itis.artists.protocol;
 public enum Type {
 
     PLAYER_CONNECTED(""),
+
+    START(""),
+
     PLAYER_DRAWS(""),
+
+    PLAYER_CLEAR(""),
+
     STOP("");
 
     private final String title;

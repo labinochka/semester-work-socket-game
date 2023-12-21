@@ -5,6 +5,8 @@ module ru.itis.semestrovka22 {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires com.fasterxml.jackson.databind;
+    requires java.desktop;
+    requires javafx.swing;
 
     opens ru.itis.artists.controller to javafx.fxml;
     opens ru.itis.artists;

@@ -51,13 +51,21 @@ public class SocketClient extends Thread {
 
                 switch (message.getType()) {
                     case PLAYER_CONNECTED -> {
-                        System.out.println(message.getType());
                         Platform.runLater(() -> controller.startGame());
+                    }
+                    case START -> {
+                        System.out.println(message.getType());
+                        Platform.runLater(() -> controller.setTask(message.getBody()));
                     }
                     case PLAYER_DRAWS -> {
                         System.out.println(message.getType());
                         String[] coordinates = message.getBody().split(",");
                         Platform.runLater(() -> controller.fillRect(coordinates[0], coordinates[1], coordinates[2], coordinates[3]));
+                    }
+                    case PLAYER_CLEAR -> {
+                        System.out.println(message.getType());
+                        String[] coordinates = message.getBody().split(",");
+                        Platform.runLater(() -> controller.clearRect(coordinates[0], coordinates[1], coordinates[2]));
                     }
                     case STOP -> {
                         System.out.println(message.getType());

@@ -45,8 +45,8 @@ public class Client extends Thread {
     }
 
     private void sendMessageToOthers(Message message, boolean isForAll) {
-        for (Client other: socketServer.getClients()) {
-            if (isForAll || !this.equals(other)){
+        for (Client other : socketServer.getClients()) {
+            if (isForAll || !this.equals(other)) {
                 other.sendMessage(message);
             }
         }
@@ -60,21 +60,21 @@ public class Client extends Thread {
                 ObjectMapper objectMapper = new ObjectMapper();
                 Message message = objectMapper.readValue(futureMessage, Message.class);
 
-                switch (message.getType()){
-                    case PLAYER_CONNECTED:{
+                switch (message.getType()) {
+                    case PLAYER_CONNECTED -> {
                         if (socketServer.isEnoughPlayers())
                             sendMessageToOthers(message, true);
-                        break;
                     }
-                    case PLAYER_DRAWS:{
+                    case START -> {
+                        sendMessageToOthers(message, true);
+                    }
+                    case PLAYER_DRAWS, PLAYER_CLEAR -> {
                         sendMessageToOthers(message, false);
-                        break;
                     }
-                    case STOP:{
+                    case STOP -> {
                         running = false;
                         socketServer.getClients().remove(this);
-                        sendMessageToOthers(message,false);
-                        break;
+                        sendMessageToOthers(message, true);
                     }
                 }
 

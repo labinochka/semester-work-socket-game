@@ -15,7 +15,8 @@
     <top>
         <VBox>
             <MenuBar>
-                <Menu text="File">
+                <Menu text="Меню">
+                    <MenuItem text="Сохранить" onAction="#onSave" />
                     <MenuItem text="Выйти" onAction="#onExit"/>
                 </Menu>
             </MenuBar>
@@ -32,6 +33,11 @@
             <Label fx:id="timerLabel" alignment="CENTER" layoutX="15.0" layoutY="23.0" text="Ждем подключения второго игрока">
                 <font>
                     <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="taskLabel" alignment="CENTER" layoutX="15.0" layoutY="27.0">
+                <font>
+                    <Font size="18.0" />
                 </font>
             </Label>
         </VBox>
